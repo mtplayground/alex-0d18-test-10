@@ -29,6 +29,20 @@ export const siteConfig = {
       href: "#hero",
     },
   },
+  valueProps: [
+    {
+      heading: "GitHub-native",
+      body: "Plans, changes, reviews, and delivery stay anchored in the GitHub workflow your team already uses.",
+    },
+    {
+      heading: "Full SDLC autonomy",
+      body: "From discovery through deployment, myClawTeam can carry software work across the full delivery lifecycle.",
+    },
+    {
+      heading: "Complete code ownership",
+      body: "The output lands in your repository, so your product, history, and operating knowledge remain yours.",
+    },
+  ],
 };
 
 export type SiteConfig = typeof siteConfig;
