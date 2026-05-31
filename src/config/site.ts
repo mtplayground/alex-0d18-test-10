@@ -15,6 +15,11 @@ export const siteConfig = {
   description: "Agent Team for Founders.",
   url: normalizeSiteUrl(import.meta.env.PUBLIC_SITE_URL),
   locale: "en_US",
+  assets: {
+    favicon: "/favicon.svg",
+    logo: "/logo.svg",
+    ogImage: "/og-image.png",
+  },
 };
 
 export type SiteConfig = typeof siteConfig;
