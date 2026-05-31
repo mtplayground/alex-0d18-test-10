@@ -1,0 +1,33 @@
+---
+import { siteConfig } from "../../config/site";
+
+const year = new Date().getFullYear();
+const { name, assets, footerLinks } = siteConfig;
+---
+
+<footer class="border-t border-ink-200 bg-white px-6 py-8 sm:px-8 lg:px-12">
+  <div class="mx-auto flex max-w-6xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+      <a href="/" class="inline-flex w-fit items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-4">
+        <img src={assets.logo} alt={name} class="h-9 w-auto" width="149" height="36" />
+      </a>
+      <p class="text-sm text-ink-600">
+        Copyright {year} {name}. All rights reserved.
+      </p>
+    </div>
+
+    <nav aria-label="Footer links">
+      <ul class="flex flex-wrap gap-x-5 gap-y-3 text-sm font-medium text-ink-700">
+        {
+          footerLinks.map((link) => (
+            <li>
+              <a class="transition hover:text-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-4" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</footer>

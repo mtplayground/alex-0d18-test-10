@@ -92,6 +92,20 @@ export const siteConfig = {
       href: "#hero",
     },
   },
+  footerLinks: [
+    {
+      label: "GitHub",
+      href: "#github",
+    },
+    {
+      label: "Privacy",
+      href: "#privacy",
+    },
+    {
+      label: "Contact",
+      href: "#contact",
+    },
+  ],
 };
 
 export type SiteConfig = typeof siteConfig;
