@@ -43,6 +43,27 @@ export const siteConfig = {
       body: "The output lands in your repository, so your product, history, and operating knowledge remain yours.",
     },
   ],
+  howItWorks: {
+    heading: "How it works",
+    steps: [
+      {
+        heading: "Talk",
+        body: "Share the product goal, constraints, and tradeoffs in plain language.",
+      },
+      {
+        heading: "Plan",
+        body: "myClawTeam turns the conversation into scoped implementation work.",
+      },
+      {
+        heading: "Build",
+        body: "Code changes are produced, checked, and prepared in the repository.",
+      },
+      {
+        heading: "Deploy & Operate",
+        body: "Delivery continues through launch readiness and operational follow-through.",
+      },
+    ],
+  },
 };
 
 export type SiteConfig = typeof siteConfig;
