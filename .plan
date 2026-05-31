@@ -1,0 +1,55 @@
+# myClawTeam Architecture Plan
+
+## Product Context
+
+The issues define a static Astro landing page for myClawTeam. The core positioning is "Agent Team for Founders" with the hero line "You just talk, we handle the rest." No `PRODUCT.md` is present in this checkout, so issue copy is the source of truth for brand and messaging.
+
+## Module Structure
+
+- `package.json`: npm scripts for `dev`, `build`, `preview`, and later `test:e2e`.
+- `astro.config.mjs`: Astro configuration, Tailwind integration, sitemap integration, and site URL handling.
+- `tsconfig.json`: strict TypeScript settings using Astro's recommended base.
+- `src/layouts/BaseLayout.astro`: shared HTML shell, global metadata defaults, canonical/OG/Twitter tags, favicon/asset links, fonts, and global stylesheet import.
+- `src/pages/index.astro`: page composition only; imports the layout and section components in final landing-page order.
+- `src/components/sections/`: landing-page sections:
+  - `Hero.astro`
+  - `ValueProps.astro`
+  - `HowItWorks.astro`
+  - `FeatureHighlights.astro`
+  - `FinalCta.astro`
+  - `Footer.astro`
+- `src/content/site.ts`: shared site metadata and landing-page copy constants used by layout, sections, JSON-LD, and tests.
+- `src/styles/global.css`: Tailwind directives, base element styles, CSS variables/tokens that should not live directly in component classes.
+- `public/`: static assets including `favicon.svg`, logo/brand mark, `og-image.png`, and `robots.txt`.
+- `.env.example`: documented build-time variables such as `PUBLIC_SITE_URL`.
+- `tests/e2e/`: Playwright smoke tests once the assembled page exists.
+
+## Shared Types and Data
+
+- Keep shared constants in `src/content/site.ts` so copy and SEO metadata are not duplicated across components and tests.
+- Use a small typed metadata shape for layout props, for example title, description, canonical path, ogImage, and JSON-LD data.
+- Prefer static Astro components for sections. Do not introduce client-side JavaScript unless a later issue explicitly requires interactivity.
+
+## Issue Dependencies
+
+- Issue #1 initializes the Astro/TypeScript base and unlocks all implementation work.
+- Issue #2 depends on #1 and establishes Tailwind tokens/global styles used by all visual components.
+- Issue #3 depends on #1 and creates `BaseLayout`, robots, sitemap, and SEO defaults.
+- Issues #4 and #5 depend on the base project/layout and provide env URL wiring and public assets.
+- Issues #6 through #11 depend on the initialized project and should use shared copy/tokens established by #2 and `site.ts`.
+- Issue #12 depends on all section components (#6-#11) and composes `index.astro`.
+- Issue #13 depends on the layout/page assembly and adds final page metadata plus JSON-LD Organization schema.
+- Issue #14 depends on assembled sections and performs responsive polish across breakpoints.
+- Issue #15 depends on the app being assembled and configures Playwright against `astro preview`.
+- Issue #16 depends on env/build readiness and validates production output plus Lighthouse baseline.
+- Issue #17 depends on env documentation and final build behavior, then documents self-hosting deployment.
+
+## Key Design Decisions
+
+- Build as a static Astro site to keep the page fast, cacheable, and easy to self-host from `dist/`.
+- Use Tailwind for layout and component styling, backed by a minimal custom theme for myClawTeam colors, typography, spacing, and focus states.
+- Keep content data centralized and typed. This reduces drift between SEO metadata, section copy, tests, and future README instructions.
+- Treat `PUBLIC_SITE_URL` as the canonical origin for sitemap, canonical URLs, and social metadata, with a safe local fallback for development.
+- Use semantic section markup, accessible buttons/links, visible focus styles, responsive grid/stack layouts, and no horizontal scrolling on mobile.
+- Ship mostly static HTML/CSS. Avoid framework client hydration unless a future requirement needs it.
+- Keep Playwright smoke tests focused on production-like behavior: built site preview, hero text, CTA presence/clickability, metadata, and console cleanliness.
