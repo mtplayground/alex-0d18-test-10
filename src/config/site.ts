@@ -85,6 +85,13 @@ export const siteConfig = {
       },
     ],
   },
+  finalCta: {
+    tagline: "Ready to turn the next conversation into shipped software?",
+    button: {
+      label: "Start a conversation",
+      href: "#hero",
+    },
+  },
 };
 
 export type SiteConfig = typeof siteConfig;
