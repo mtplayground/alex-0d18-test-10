@@ -20,6 +20,15 @@ export const siteConfig = {
     logo: "/logo.svg",
     ogImage: "/og-image.png",
   },
+  hero: {
+    tagline: "Agent Team for Founders",
+    headline: "You just talk, we handle the rest",
+    body: "myClawTeam turns founder conversations into shipped product work, handling planning, implementation, deployment, and operational follow-through while the code stays in the repository you own.",
+    cta: {
+      label: "Start a conversation",
+      href: "#hero",
+    },
+  },
 };
 
 export type SiteConfig = typeof siteConfig;
