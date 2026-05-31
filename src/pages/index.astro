@@ -1,4 +1,6 @@
 ---
+import "../styles/global.css";
+
 const pageTitle = "myClawTeam";
 ---
 
@@ -9,8 +11,10 @@ const pageTitle = "myClawTeam";
     <title>{pageTitle}</title>
   </head>
   <body>
-    <main>
-      <h1>{pageTitle}</h1>
+    <main class="grid min-h-screen place-items-center bg-surface px-6 text-center">
+      <h1 class="font-display text-4xl font-semibold tracking-normal text-ink-950">
+        {pageTitle}
+      </h1>
     </main>
   </body>
 </html>

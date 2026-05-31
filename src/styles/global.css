@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100%;
+    margin: 0;
+    background: theme("colors.surface.DEFAULT");
+    color: theme("colors.ink.950");
+    font-family: theme("fontFamily.sans");
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  a {
+    color: inherit;
+  }
+}
