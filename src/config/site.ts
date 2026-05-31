@@ -64,6 +64,27 @@ export const siteConfig = {
       },
     ],
   },
+  featureHighlights: {
+    heading: "Feature highlights",
+    items: [
+      {
+        heading: "Production-ready output",
+        body: "Implementation work is shaped for real delivery, with buildable code and clear review boundaries.",
+      },
+      {
+        heading: "Security-by-default",
+        body: "Changes are made with conservative defaults, scoped access, and repository visibility in mind.",
+      },
+      {
+        heading: "Code-in-your-repo",
+        body: "The work happens where your product lives, keeping source, history, and decisions together.",
+      },
+      {
+        heading: "End-to-end SDLC coverage",
+        body: "Planning, implementation, validation, deployment support, and operational follow-through stay connected.",
+      },
+    ],
+  },
 };
 
 export type SiteConfig = typeof siteConfig;
