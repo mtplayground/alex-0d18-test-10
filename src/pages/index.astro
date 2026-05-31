@@ -6,11 +6,21 @@ import Footer from "../components/sections/Footer.astro";
 import Hero from "../components/sections/Hero.astro";
 import HowItWorks from "../components/sections/HowItWorks.astro";
 import ValueProps from "../components/sections/ValueProps.astro";
+import { siteConfig } from "../config/site";
 
-const pageTitle = "myClawTeam";
+const pageTitle = "Agent Team for Founders";
+const pageDescription = "myClawTeam helps founders turn conversations into shipped product work, from planning and implementation through deployment and operational follow-through.";
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  logo: new URL(siteConfig.assets.logo, siteConfig.url).toString(),
+  description: pageDescription,
+};
 ---
 
-<BaseLayout title={pageTitle}>
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath="/" jsonLd={organizationJsonLd}>
   <main>
     <Hero />
     <ValueProps />

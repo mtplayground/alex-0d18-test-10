@@ -2,22 +2,27 @@
 import "../styles/global.css";
 import { siteConfig } from "../config/site";
 
+type JsonLd = Record<string, unknown> | Record<string, unknown>[];
+
 interface Props {
   title?: string;
   description?: string;
   canonicalPath?: string;
+  jsonLd?: JsonLd;
 }
 
 const {
   title = siteConfig.title,
   description = siteConfig.description,
   canonicalPath = "/",
+  jsonLd,
 } = Astro.props;
 
 const pageTitle = title === siteConfig.title ? title : `${title} | ${siteConfig.name}`;
 const canonicalUrl = new URL(canonicalPath, siteConfig.url).toString();
 const faviconUrl = siteConfig.assets.favicon;
 const ogImageUrl = new URL(siteConfig.assets.ogImage, siteConfig.url).toString();
+const jsonLdContent = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : undefined;
 ---
 
 <!doctype html>
@@ -54,6 +59,7 @@ const ogImageUrl = new URL(siteConfig.assets.ogImage, siteConfig.url).toString()
     <meta name="twitter:image" content={ogImageUrl} />
 
     <title>{pageTitle}</title>
+    {jsonLdContent && <script type="application/ld+json" is:inline set:html={jsonLdContent} />}
   </head>
   <body>
     <slot />
