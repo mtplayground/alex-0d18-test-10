@@ -1,0 +1,25 @@
+---
+import { siteConfig } from "../../config/site";
+
+const { finalCta } = siteConfig;
+---
+
+<section id="cta" class="bg-brand-950 px-6 py-16 text-white sm:px-8 lg:px-12" aria-labelledby="final-cta-heading">
+  <div class="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+    <div class="max-w-3xl">
+      <p class="font-display text-sm font-semibold uppercase tracking-normal text-brand-200">
+        Next step
+      </p>
+      <h2 id="final-cta-heading" class="mt-4 font-display text-3xl font-bold leading-tight tracking-normal sm:text-4xl">
+        {finalCta.tagline}
+      </h2>
+    </div>
+
+    <a
+      href={finalCta.button.href}
+      class="inline-flex min-h-12 shrink-0 items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-brand-950 transition hover:bg-brand-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-brand-950"
+    >
+      {finalCta.button.label}
+    </a>
+  </div>
+</section>
