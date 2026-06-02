@@ -21,6 +21,25 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /*
+    To add a theme, create another [data-theme="name"] block that overrides
+    every --color-* token, then add the name to siteConfig.theme.supported and
+    set PUBLIC_THEME=name at build time.
+  */
+  [data-theme="dark"] {
+    --color-primary: 75 180 255;
+    --color-primary-foreground: 17 24 32;
+    --color-background: 17 24 32;
+    --color-surface: 34 44 53;
+    --color-foreground: 246 248 250;
+    --color-muted: 34 44 53;
+    --color-muted-foreground: 179 195 210;
+    --color-border: 68 88 106;
+    --color-accent: 18 185 129;
+
+    color-scheme: dark;
+  }
+
   html {
     min-height: 100%;
     scroll-behavior: smooth;
