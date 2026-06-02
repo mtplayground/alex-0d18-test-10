@@ -2,6 +2,8 @@
 
 Date: 2026-05-31
 
+Verified theme: `light` default (`PUBLIC_THEME` unset or `PUBLIC_THEME=light`).
+
 ## Commands Run
 
 ```bash

@@ -25,9 +25,12 @@ Required for production builds:
 
 ```bash
 PUBLIC_SITE_URL=https://example.com
+PUBLIC_THEME=light
 ```
 
 `PUBLIC_SITE_URL` must be an absolute origin URL. It is used to generate canonical URLs, Open Graph URLs, `robots.txt`, and sitemap entries. For local development, `.env.example` uses `http://localhost:8080`.
+
+`PUBLIC_THEME` is optional. It selects the build-time visual theme and defaults to `light`. Supported values are listed in `src/config/site.ts`.
 
 ## Local Development
 
@@ -56,6 +59,27 @@ npm run preview
 ```
 
 The preview server also listens on `0.0.0.0:8080`.
+
+## Theming
+
+The site uses semantic CSS variables declared in `src/styles/global.css` and mapped into Tailwind in `tailwind.config.mjs`. Components should use semantic utilities such as `bg-background`, `bg-card`, `text-foreground`, `text-muted-foreground`, `border-border`, `bg-primary`, and `text-primary-foreground`.
+
+To change colors within an existing theme, edit the RGB triplet values in `src/styles/global.css`. Use plain triplets such as `20 94 167`, not hex values or `rgb(...)`, so Tailwind opacity modifiers continue to work through `<alpha-value>`.
+
+The default theme is the `:root` palette. Alternate palettes are declared with `data-theme` selectors, for example `[data-theme="dark"]`. `src/layouts/BaseLayout.astro` sets `<html data-theme="...">` from `PUBLIC_THEME`, falling back to `siteConfig.theme.default` when the env var is missing or unsupported.
+
+Switch themes at build time:
+
+```bash
+PUBLIC_THEME=dark npm run build
+```
+
+To add a new named theme:
+
+1. Add a `[data-theme="name"]` block in `src/styles/global.css`.
+2. Override every `--color-*` token used by the semantic Tailwind colors.
+3. Add `"name"` to `SUPPORTED_THEMES` in `src/config/site.ts`.
+4. Build with `PUBLIC_THEME=name`.
 
 ## Self-Hosting `dist/`
 
