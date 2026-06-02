@@ -15,6 +15,7 @@
     --color-primary-ring: 34 149 242;
     --color-background: 251 252 254;
     --color-surface: 251 252 254;
+    --color-card: 255 255 255;
     --color-foreground: 17 24 32;
     --color-foreground-muted: 68 88 106;
     --color-muted: 241 245 249;
@@ -47,6 +48,7 @@
     --color-primary-ring: 75 180 255;
     --color-background: 17 24 32;
     --color-surface: 34 44 53;
+    --color-card: 34 44 53;
     --color-foreground: 246 248 250;
     --color-foreground-muted: 179 195 210;
     --color-muted: 34 44 53;
@@ -66,8 +68,8 @@
   body {
     min-height: 100%;
     margin: 0;
-    background: theme("colors.surface.DEFAULT");
-    color: theme("colors.ink.950");
+    background: rgb(var(--color-background) / 1);
+    color: rgb(var(--color-foreground) / 1);
     font-family: theme("fontFamily.sans");
   }
 
