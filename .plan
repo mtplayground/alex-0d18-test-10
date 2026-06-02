@@ -1,55 +1,41 @@
-# myClawTeam Architecture Plan
+# myClawTeam Theming Architecture Plan
 
 ## Product Context
 
-The issues define a static Astro landing page for myClawTeam. The core positioning is "Agent Team for Founders" with the hero line "You just talk, we handle the rest." No `PRODUCT.md` is present in this checkout, so issue copy is the source of truth for brand and messaging.
+myClawTeam is a static Astro landing page for the product positioning "Agent Team for Founders." The next issue batch migrates the existing Tailwind color system from hard-coded palette scales to semantic CSS variable tokens while preserving the current visual design and adding theme switching.
 
 ## Module Structure
 
-- `package.json`: npm scripts for `dev`, `build`, `preview`, and later `test:e2e`.
-- `astro.config.mjs`: Astro configuration, Tailwind integration, sitemap integration, and site URL handling.
-- `tsconfig.json`: strict TypeScript settings using Astro's recommended base.
-- `src/layouts/BaseLayout.astro`: shared HTML shell, global metadata defaults, canonical/OG/Twitter tags, favicon/asset links, fonts, and global stylesheet import.
-- `src/pages/index.astro`: page composition only; imports the layout and section components in final landing-page order.
-- `src/components/sections/`: landing-page sections:
-  - `Hero.astro`
-  - `ValueProps.astro`
-  - `HowItWorks.astro`
-  - `FeatureHighlights.astro`
-  - `FinalCta.astro`
-  - `Footer.astro`
-- `src/content/site.ts`: shared site metadata and landing-page copy constants used by layout, sections, JSON-LD, and tests.
-- `src/styles/global.css`: Tailwind directives, base element styles, CSS variables/tokens that should not live directly in component classes.
-- `public/`: static assets including `favicon.svg`, logo/brand mark, `og-image.png`, and `robots.txt`.
-- `.env.example`: documented build-time variables such as `PUBLIC_SITE_URL`.
-- `tests/e2e/`: Playwright smoke tests once the assembled page exists.
+- `src/styles/global.css`: owns base Tailwind imports, root semantic CSS variables, named theme overrides such as `[data-theme="dark"]`, and base element styles that consume semantic variables.
+- `tailwind.config.mjs`: maps semantic Tailwind color names to CSS variables with `rgb(var(--color-...) / <alpha-value>)`; legacy `brand`, `ink`, `signal`, and `surface` scales remain only during migration.
+- `src/config/site.ts`: remains the shared product/content config and is the likely home for a default theme value if the implementation chooses config-driven theme selection.
+- `src/layouts/BaseLayout.astro`: applies `<html data-theme="...">`, imports global CSS, and continues to own SEO, fonts, and asset links.
+- `src/components/sections/*.astro`: migrate section classes from legacy palette utilities to semantic color utilities in grouped batches:
+  - `Hero.astro` and `ValueProps.astro`
+  - `HowItWorks.astro` and `FeatureHighlights.astro`
+  - `FinalCta.astro` and `Footer.astro`
+- `README.md`: documents the theme system, theme switching via `data-theme` / `PUBLIC_THEME`, and how to add named themes.
+- `docs/production-verification.md`: records which theme was verified after the migration.
 
 ## Shared Types and Data
 
-- Keep shared constants in `src/content/site.ts` so copy and SEO metadata are not duplicated across components and tests.
-- Use a small typed metadata shape for layout props, for example title, description, canonical path, ogImage, and JSON-LD data.
-- Prefer static Astro components for sections. Do not introduce client-side JavaScript unless a later issue explicitly requires interactivity.
+- Keep product copy in `src/config/site.ts`; theming should not duplicate content or introduce client-side state unless required.
+- If a theme setting is added to config, keep it as a small string literal value and validate/fallback in the layout so invalid `PUBLIC_THEME` values do not break rendering.
+- CSS variables should use RGB triplets, not hex values, so Tailwind opacity modifiers continue to work through `<alpha-value>`.
 
 ## Issue Dependencies
 
-- Issue #1 initializes the Astro/TypeScript base and unlocks all implementation work.
-- Issue #2 depends on #1 and establishes Tailwind tokens/global styles used by all visual components.
-- Issue #3 depends on #1 and creates `BaseLayout`, robots, sitemap, and SEO defaults.
-- Issues #4 and #5 depend on the base project/layout and provide env URL wiring and public assets.
-- Issues #6 through #11 depend on the initialized project and should use shared copy/tokens established by #2 and `site.ts`.
-- Issue #12 depends on all section components (#6-#11) and composes `index.astro`.
-- Issue #13 depends on the layout/page assembly and adds final page metadata plus JSON-LD Organization schema.
-- Issue #14 depends on assembled sections and performs responsive polish across breakpoints.
-- Issue #15 depends on the app being assembled and configures Playwright against `astro preview`.
-- Issue #16 depends on env/build readiness and validates production output plus Lighthouse baseline.
-- Issue #17 depends on env documentation and final build behavior, then documents self-hosting deployment.
+- Issue #35 defines the semantic CSS variable contract in `global.css`.
+- Issue #36 maps Tailwind semantic color keys to those variables while retaining legacy palette scales during migration.
+- Issue #37 adds light/default plus dark theme palettes and sets `data-theme` from config or `PUBLIC_THEME`.
+- Issues #38, #39, and #40 migrate all section components to semantic utilities in batches.
+- Issue #41 removes the legacy palette scales after all component usage is migrated, greps for remaining legacy class names, and verifies `astro build` plus Playwright smoke tests.
+- Issue #42 updates README and production verification docs once the semantic theme system is complete.
 
 ## Key Design Decisions
 
-- Build as a static Astro site to keep the page fast, cacheable, and easy to self-host from `dist/`.
-- Use Tailwind for layout and component styling, backed by a minimal custom theme for myClawTeam colors, typography, spacing, and focus states.
-- Keep content data centralized and typed. This reduces drift between SEO metadata, section copy, tests, and future README instructions.
-- Treat `PUBLIC_SITE_URL` as the canonical origin for sitemap, canonical URLs, and social metadata, with a safe local fallback for development.
-- Use semantic section markup, accessible buttons/links, visible focus styles, responsive grid/stack layouts, and no horizontal scrolling on mobile.
-- Ship mostly static HTML/CSS. Avoid framework client hydration unless a future requirement needs it.
-- Keep Playwright smoke tests focused on production-like behavior: built site preview, hero text, CTA presence/clickability, metadata, and console cleanliness.
+- Preserve current light-theme output first; dark theme support should be additive and should not force layout or copy changes.
+- Keep the semantic token names stable and product-agnostic: `primary`, `background`, `surface`, `foreground`, `muted`, `border`, and `accent`.
+- Avoid a broken intermediate state by keeping legacy palettes in Tailwind until every component has migrated.
+- Prefer CSS-variable theming over runtime JavaScript so the site remains static, fast, and deployable from `dist/`.
+- Verify visually relevant changes with the existing build and Playwright smoke workflow before removing legacy scales.
