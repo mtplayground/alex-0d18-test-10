@@ -6,13 +6,22 @@
   :root {
     --color-primary: 20 94 167;
     --color-primary-foreground: 255 255 255;
+    --color-primary-soft: 238 248 255;
+    --color-primary-subtle: 216 239 255;
+    --color-primary-muted: 184 227 255;
+    --color-primary-active: 20 118 207;
+    --color-primary-hover: 23 79 137;
+    --color-primary-strong: 17 41 71;
+    --color-primary-ring: 34 149 242;
     --color-background: 251 252 254;
     --color-surface: 251 252 254;
     --color-foreground: 17 24 32;
+    --color-foreground-muted: 68 88 106;
     --color-muted: 241 245 249;
     --color-muted-foreground: 83 109 130;
     --color-border: 212 221 231;
     --color-accent: 18 185 129;
+    --color-accent-warm: 245 165 36;
 
     color-scheme: light;
     font-synthesis: none;
@@ -29,13 +38,22 @@
   [data-theme="dark"] {
     --color-primary: 75 180 255;
     --color-primary-foreground: 17 24 32;
+    --color-primary-soft: 17 41 71;
+    --color-primary-subtle: 25 63 108;
+    --color-primary-muted: 134 209 255;
+    --color-primary-active: 75 180 255;
+    --color-primary-hover: 134 209 255;
+    --color-primary-strong: 8 18 30;
+    --color-primary-ring: 75 180 255;
     --color-background: 17 24 32;
     --color-surface: 34 44 53;
     --color-foreground: 246 248 250;
+    --color-foreground-muted: 179 195 210;
     --color-muted: 34 44 53;
     --color-muted-foreground: 179 195 210;
     --color-border: 68 88 106;
     --color-accent: 18 185 129;
+    --color-accent-warm: 245 165 36;
 
     color-scheme: dark;
   }

@@ -9,15 +9,28 @@ export default {
         primary: {
           DEFAULT: tokenColor("primary"),
           foreground: tokenColor("primary-foreground"),
+          soft: tokenColor("primary-soft"),
+          subtle: tokenColor("primary-subtle"),
+          muted: tokenColor("primary-muted"),
+          active: tokenColor("primary-active"),
+          hover: tokenColor("primary-hover"),
+          strong: tokenColor("primary-strong"),
+          ring: tokenColor("primary-ring"),
         },
         background: tokenColor("background"),
-        foreground: tokenColor("foreground"),
+        foreground: {
+          DEFAULT: tokenColor("foreground"),
+          muted: tokenColor("foreground-muted"),
+        },
         muted: {
           DEFAULT: tokenColor("muted"),
           foreground: tokenColor("muted-foreground"),
         },
         border: tokenColor("border"),
-        accent: tokenColor("accent"),
+        accent: {
+          DEFAULT: tokenColor("accent"),
+          warm: tokenColor("accent-warm"),
+        },
         brand: {
           50: "#eef8ff",
           100: "#d8efff",
