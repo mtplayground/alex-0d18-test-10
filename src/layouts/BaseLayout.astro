@@ -23,10 +23,15 @@ const canonicalUrl = new URL(canonicalPath, siteConfig.url).toString();
 const faviconUrl = siteConfig.assets.favicon;
 const ogImageUrl = new URL(siteConfig.assets.ogImage, siteConfig.url).toString();
 const jsonLdContent = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : undefined;
+const configuredTheme = import.meta.env.PUBLIC_THEME ?? siteConfig.theme.default;
+const supportedThemes: readonly string[] = siteConfig.theme.supported;
+const activeTheme = supportedThemes.includes(configuredTheme)
+  ? configuredTheme
+  : siteConfig.theme.default;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme={activeTheme}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

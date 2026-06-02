@@ -1,4 +1,5 @@
 const DEFAULT_SITE_URL = "http://localhost:8080";
+const SUPPORTED_THEMES = ["light", "dark"] as const;
 
 function normalizeSiteUrl(rawSiteUrl = DEFAULT_SITE_URL) {
   try {
@@ -15,6 +16,10 @@ export const siteConfig = {
   description: "Agent Team for Founders.",
   url: normalizeSiteUrl(import.meta.env.PUBLIC_SITE_URL),
   locale: "en_US",
+  theme: {
+    default: "light",
+    supported: SUPPORTED_THEMES,
+  },
   assets: {
     favicon: "/favicon.svg",
     logo: "/logo.svg",
