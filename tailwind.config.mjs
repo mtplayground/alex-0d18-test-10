@@ -1,9 +1,23 @@
+const tokenColor = (name) => `rgb(var(--color-${name}) / <alpha-value>)`;
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
       colors: {
+        primary: {
+          DEFAULT: tokenColor("primary"),
+          foreground: tokenColor("primary-foreground"),
+        },
+        background: tokenColor("background"),
+        foreground: tokenColor("foreground"),
+        muted: {
+          DEFAULT: tokenColor("muted"),
+          foreground: tokenColor("muted-foreground"),
+        },
+        border: tokenColor("border"),
+        accent: tokenColor("accent"),
         brand: {
           50: "#eef8ff",
           100: "#d8efff",
@@ -36,9 +50,9 @@ export default {
           coral: "#f45d48",
         },
         surface: {
-          DEFAULT: "#fbfcfe",
-          muted: "#f1f5f9",
-          raised: "#ffffff",
+          DEFAULT: tokenColor("surface"),
+          muted: tokenColor("muted"),
+          raised: "rgb(255 255 255 / <alpha-value>)",
         },
       },
       fontFamily: {
